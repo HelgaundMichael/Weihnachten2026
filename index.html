@@ -25,6 +25,7 @@ button:hover{background:#f6dda0}
 <h1 id="title">Die sieben Geheimnisse</h1>
 <p id="intro">Eine geheimnisvolle Reise beginnt. Sieben Rätsel liegen vor dir. Löse sie der Reihe nach und finde den verborgenen Schatz.</p>
 <div class="riddle" id="riddle">Bist du bereit, die erste Tür zu öffnen?</div>
+<img id="stageImage" class="raetselbild" alt="Bild zum Rätsel" hidden> 
 <form id="codeForm">
 <input id="code" autocomplete="off" placeholder="Geheimcode eingeben" aria-label="Geheimcode" required>
 <button type="submit" id="submit">Abenteuer beginnen</button>
@@ -34,7 +35,7 @@ button:hover{background:#f6dda0}
 </main>
 <script>
 const stages = [
-{title:"Das erste Geheimnis",symbol:"🌲",intro:"Der Wald schweigt. Nur wer genau hinsieht, findet den Anfang.",riddle:"Ich habe viele Blätter, bin aber kein Buch. Im Wald biete ich Vögeln ein Zuhause. Was bin ich?",code:"WALD"},
+{title:"Hallo liebe Helga, kannst du dich noch erinnern, wo wir da waren?",intro:"Gib unten den Ort ein und merke dir den zweiten Buchstaben.",riddle:"Du benötigst ihn später für den Mine Cryptex,code:"Michaelismesse"},
 {title:"Das zweite Geheimnis",symbol:"🧭",intro:"Ein schmaler Pfad führt tiefer in das Abenteuer.",riddle:"Ich zeige dir Norden, Süden, Osten und Westen. Was bin ich?",code:"KOMPASS"},
 {title:"Das dritte Geheimnis",symbol:"🌙",intro:"Die Dämmerung legt sich über den Weg.",riddle:"Ich leuchte nachts am Himmel und verändere meine Gestalt. Was bin ich?",code:"MOND"},
 {title:"Das vierte Geheimnis",symbol:"🗝️",intro:"Vor dir steht eine alte, verschlossene Truhe.",riddle:"Ich passe in ein Schloss und kann Türen öffnen. Was bin ich?",code:"SCHLUESSEL"},
