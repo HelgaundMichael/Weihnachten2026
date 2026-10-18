@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Die sieben Geheimnisse</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,#294638,#101a18 70%);color:#f8f0dc;font-family:Georgia,serif}
+.card{width:min(100%,600px);padding:clamp(24px,6vw,44px);border:1px solid #b99752;border-radius:20px;background:#17241fee;box-shadow:0 20px 70px #0008;text-align:center}
+.symbol{font-size:42px}
+h1{color:#e9c777;font-size:clamp(27px,6vw,38px)}
+p{font-size:18px;line-height:1.65}
+.riddle{margin:25px 0;padding:20px;background:#ffffff0b;border-radius:12px;font-size:19px;line-height:1.6}
+input{width:100%;padding:15px;border:1px solid #b99752;border-radius:9px;background:#101a18;color:white;font-size:17px;text-align:center}
+button{width:100%;margin-top:12px;padding:15px;border:0;border-radius:9px;background:#e9c777;color:#182019;font-size:17px;font-weight:bold;cursor:pointer}
+button:hover{background:#f6dda0}
+#feedback{min-height:28px;color:#f5c7a9}
+.small{font-size:13px;color:#c9c2b1}
+</style>
+</head>
+<body>
+<main class="card">
+<div class="symbol" id="symbol">🗝️</div>
+<h1 id="title">Die sieben Geheimnisse</h1>
+<p id="intro">Eine geheimnisvolle Reise beginnt. Sieben Rätsel liegen vor dir. Löse sie der Reihe nach und finde den verborgenen Schatz.</p>
+<div class="riddle" id="riddle">Bist du bereit, die erste Tür zu öffnen?</div>
+<form id="codeForm">
+<input id="code" autocomplete="off" placeholder="Geheimcode eingeben" aria-label="Geheimcode" required>
+<button type="submit" id="submit">Abenteuer beginnen</button>
+</form>
+<p id="feedback" role="status" aria-live="polite"></p>
+<p class="small" id="progress">Startseite</p>
+</main>
+<script>
+const stages = [
+{title:"Das erste Geheimnis",symbol:"🌲",intro:"Der Wald schweigt. Nur wer genau hinsieht, findet den Anfang.",riddle:"Ich habe viele Blätter, bin aber kein Buch. Im Wald biete ich Vögeln ein Zuhause. Was bin ich?",code:"WALD"},
+{title:"Das zweite Geheimnis",symbol:"🧭",intro:"Ein schmaler Pfad führt tiefer in das Abenteuer.",riddle:"Ich zeige dir Norden, Süden, Osten und Westen. Was bin ich?",code:"KOMPASS"},
+{title:"Das dritte Geheimnis",symbol:"🌙",intro:"Die Dämmerung legt sich über den Weg.",riddle:"Ich leuchte nachts am Himmel und verändere meine Gestalt. Was bin ich?",code:"MOND"},
+{title:"Das vierte Geheimnis",symbol:"🗝️",intro:"Vor dir steht eine alte, verschlossene Truhe.",riddle:"Ich passe in ein Schloss und kann Türen öffnen. Was bin ich?",code:"SCHLUESSEL"},
+{title:"Das fünfte Geheimnis",symbol:"🔥",intro:"Ein warmes Licht weist dir den Weg.",riddle:"Ich spende Wärme und Licht, kann aber auch gefährlich sein. Was bin ich?",code:"FEUER"},
+{title:"Das sechste Geheimnis",symbol:"🌊",intro:"Du hörst Wasser rauschen. Das Ziel ist nah.",riddle:"Ich fließe ins Tal, manchmal ruhig, manchmal schnell. Was bin ich?",code:"FLUSS"},
+{title:"Das siebte Geheimnis",symbol:"💎",intro:"Die letzte Tür steht vor dir. Nur ein letzter Code fehlt.",riddle:"Ich bin kostbar, glänze wunderschön und werde oft in Schmuck eingesetzt. Was bin ich?",code:"JUWEL"}
+];
+let current=0;
+const $=id=>document.getElementById(id);
+function render(){
+ if(current>=stages.length){
+  $("symbol").textContent="🏆";
+  $("title").textContent="Du hast es geschafft!";
+  $("intro").textContent="Alle sieben Geheimnisse sind gelöst. Du hast den Schatz gefunden!";
+  $("riddle").textContent="🎉 Herzlichen Glückwunsch, Rätselmeister! Hier wartet deine Belohnung: [Hier deine Überraschung eintragen.]";
+  $("codeForm").hidden=true;$("progress").textContent="7 von 7 Rätseln gelöst";$("feedback").textContent="";
+  return;
+ }
+ const s=stages[current];
+ $("symbol").textContent=s.symbol;$("title").textContent=s.title;$("intro").textContent=s.intro;
+ $("riddle").textContent=s.riddle;$("code").value="";
+ $("code").placeholder="Geheimcode eingeben";$("submit").textContent=current===0?"Erstes Rätsel lösen":"Nächstes Geheimnis öffnen";
+ $("progress").textContent="Rätsel "+(current+1)+" von 7";$("feedback").textContent="";
+}
+$("codeForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const entered=$("code").value.trim().toLocaleUpperCase("de-DE").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ß/g,"SS").replace(/[^A-Z0-9]/g,"");
+ const expected=stages[current].code.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ß/g,"SS").replace(/[^A-Z0-9]/g,"");
+ if(entered===expected){current++;render();}
+ else{$("feedback").textContent="Das ist leider nicht der richtige Code. Versuche es noch einmal!";}
+});
+render();
+</script>
+</body>
+</html>
