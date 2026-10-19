@@ -1,72 +1,375 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Du und ich Helga!</title>
+<meta name="theme-color" content="#17241f">
+<title>Du und ich, Helga! – Weihnachtsrätsel</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,#294638,#101a18 70%);color:#f8f0dc;font-family:Georgia,serif}
-.card{width:min(100%,600px);padding:clamp(24px,6vw,44px);border:1px solid #b99752;border-radius:20px;background:#17241fee;box-shadow:0 20px 70px #0008;text-align:center}
-.symbol{font-size:42px}
-h1{color:#e9c777;font-size:clamp(27px,6vw,38px)}
-p{font-size:18px;line-height:1.65}
-.riddle{margin:25px 0;padding:20px;background:#ffffff0b;border-radius:12px;font-size:19px;line-height:1.6}
-input{width:100%;padding:15px;border:1px solid #b99752;border-radius:9px;background:#101a18;color:white;font-size:17px;text-align:center}
-button{width:100%;margin-top:12px;padding:15px;border:0;border-radius:9px;background:#e9c777;color:#182019;font-size:17px;font-weight:bold;cursor:pointer}
-button:hover{background:#f6dda0}
-#feedback{min-height:28px;color:#f5c7a9}
-.small{font-size:13px;color:#c9c2b1}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: radial-gradient(circle at top, #294638, #101a18 70%);
+  color: #f8f0dc;
+  font-family: Georgia, serif;
+}
+
+.card {
+  width: min(100%, 600px);
+  padding: clamp(24px, 6vw, 44px);
+  border: 1px solid #b99752;
+  border-radius: 20px;
+  background: #17241f;
+  box-shadow: 0 20px 70px #0008;
+  text-align: center;
+}
+
+.symbol {
+  font-size: 42px;
+}
+
+h1 {
+  color: #e9c777;
+  font-size: clamp(27px, 6vw, 38px);
+  line-height: 1.25;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.riddle {
+  margin: 25px 0;
+  padding: 20px;
+  background: #ffffff0b;
+  border-radius: 12px;
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #b99752;
+  border-radius: 9px;
+  background: #101a18;
+  color: white;
+  font-size: 17px;
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px;
+  border: 0;
+  border-radius: 9px;
+  background: #e9c777;
+  color: #182019;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #f6dda0;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #f6dda0;
+  outline-offset: 3px;
+}
+
+#feedback {
+  min-height: 28px;
+  color: #f5c7a9;
+}
+
+.small {
+  font-size: 13px;
+  color: #c9c2b1;
+}
+
+#stageImage {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  margin: 20px auto;
+  border-radius: 12px;
+}
+
+#stageImage[hidden] {
+  display: none;
+}
+
+.decoration {
+  color: #e9c777;
+  letter-spacing: 5px;
+  font-size: 18px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
 </style>
 </head>
+
 <body>
 <main class="card">
-<div class="symbol" id="symbol">🗝️</div>
-<h1 id="title">Der Weg zu deinem Weihnachtsgeschenk</h1>
-<p id="intro">Hallo liebe Helga, du bist schon bald bei deinem Weihnachtsgeschenk. Du musst nur noch ein paar kleine Rätsel lösen.</p>
-<div class="riddle" id="riddle">Bist du bereit?</div>
-<img id="stageImage" class="raetselbild" alt="Bild zum Rätsel" hidden> 
-<form id="codeForm">
-<input id="code" autocomplete="off" placeholder="Geheimcode eingeben" aria-label="Geheimcode" required>
-<button type="submit" id="submit">Abenteuer beginnen</button>
-</form>
-<p id="feedback" role="status" aria-live="polite"></p>
-<p class="small" id="progress">Startseite</p>
+
+  <div class="decoration" aria-hidden="true">
+    ✦ ❄ ✦
+  </div>
+
+  <div class="symbol" id="symbol">🎄</div>
+
+  <h1 id="title">Du und ich, Helga!</h1>
+
+  <p id="intro">
+    Hallo liebe Helga! ❤️
+    Dieses Weihnachten wartet ein ganz besonderes
+    Abenteuer auf dich.
+    Sieben Geheimnisse führen dich Schritt für Schritt
+    zu deinem Weihnachtsgeschenk.
+  </p>
+
+  <div class="riddle" id="riddle">
+    Bist du bereit, dich auf die Suche zu machen?
+    Dann beginnt jetzt unser kleines Abenteuer!
+  </div>
+
+  <img
+    id="stageImage"
+    alt="Bild zum Rätsel"
+    hidden
+  >
+
+  <button type="button" id="startButton">
+    🎁 Abenteuer beginnen
+  </button>
+
+  <form id="codeForm" hidden>
+    <label for="code" class="small">
+      Gib den Geheimcode ein, um weiterzukommen.
+    </label>
+
+    <input
+      id="code"
+      type="text"
+      autocomplete="off"
+      placeholder="Geheimcode eingeben"
+      aria-label="Geheimcode"
+      required
+    >
+
+    <button type="submit" id="submit">
+      Rätsel lösen
+    </button>
+  </form>
+
+  <p id="feedback" role="status" aria-live="polite"></p>
+
+  <p class="small" id="progress">
+    Dein Weihnachtsabenteuer wartet
+  </p>
+
 </main>
+
 <script>
 const stages = [
-{title:"Kannst du dich noch erinnern, wo wir damals waren?",intro:"Gib unten den Ort ein, um auf die nächste Seite zu gelangen und merke dir den zweiten Buchstaben.",riddle:"Du benötigst ihn später für den Mini Cryptex",code:"Michaelismesse"},
-{title:"Das zweite Geheimnis",symbol:"🧭",intro:"Ein schmaler Pfad führt tiefer in das Abenteuer.",riddle:"Ich zeige dir Norden, Süden, Osten und Westen. Was bin ich?",code:"KOMPASS"},
-{title:"Das dritte Geheimnis",symbol:"🌙",intro:"Die Dämmerung legt sich über den Weg.",riddle:"Ich leuchte nachts am Himmel und verändere meine Gestalt. Was bin ich?",code:"MOND"},
-{title:"Das vierte Geheimnis",symbol:"🗝️",intro:"Vor dir steht eine alte, verschlossene Truhe.",riddle:"Ich passe in ein Schloss und kann Türen öffnen. Was bin ich?",code:"SCHLUESSEL"},
-{title:"Das fünfte Geheimnis",symbol:"🔥",intro:"Ein warmes Licht weist dir den Weg.",riddle:"Ich spende Wärme und Licht, kann aber auch gefährlich sein. Was bin ich?",code:"FEUER"},
-{title:"Das sechste Geheimnis",symbol:"🌊",intro:"Du hörst Wasser rauschen. Das Ziel ist nah.",riddle:"Ich fließe ins Tal, manchmal ruhig, manchmal schnell. Was bin ich?",code:"FLUSS"},
-{title:"Das siebte Geheimnis",symbol:"💎",intro:"Die letzte Tür steht vor dir. Nur ein letzter Code fehlt.",riddle:"Ich bin kostbar, glänze wunderschön und werde oft in Schmuck eingesetzt. Was bin ich?",code:"JUWEL"}
+  {
+    title: "Kannst du dich noch erinnern, wo wir damals waren?",
+    symbol: "🗝️",
+    intro: "Gib unten den Ort ein, um auf die nächste Seite zu gelangen und merke dir den zweiten Buchstaben.",
+    riddle: "Du benötigst ihn später für den Mini Cryptex",
+    code: "Michaelismesse"
+  },
+  {
+    title: "Das zweite Geheimnis",
+    symbol: "🧭",
+    intro: "Ein schmaler Pfad führt tiefer in das Abenteuer.",
+    riddle: "Ich zeige dir Norden, Süden, Osten und Westen. Was bin ich?",
+    code: "KOMPASS"
+  },
+  {
+    title: "Das dritte Geheimnis",
+    symbol: "🌙",
+    intro: "Die Dämmerung legt sich über den Weg.",
+    riddle: "Ich leuchte nachts am Himmel und verändere meine Gestalt. Was bin ich?",
+    code: "MOND"
+  },
+  {
+    title: "Das vierte Geheimnis",
+    symbol: "🗝️",
+    intro: "Vor dir steht eine alte, verschlossene Truhe.",
+    riddle: "Ich passe in ein Schloss und kann Türen öffnen. Was bin ich?",
+    code: "SCHLUESSEL"
+  },
+  {
+    title: "Das fünfte Geheimnis",
+    symbol: "🔥",
+    intro: "Ein warmes Licht weist dir den Weg.",
+    riddle: "Ich spende Wärme und Licht, kann aber auch gefährlich sein. Was bin ich?",
+    code: "FEUER"
+  },
+  {
+    title: "Das sechste Geheimnis",
+    symbol: "🌊",
+    intro: "Du hörst Wasser rauschen. Das Ziel ist nah.",
+    riddle: "Ich fließe ins Tal, manchmal ruhig, manchmal schnell. Was bin ich?",
+    code: "FLUSS"
+  },
+  {
+    title: "Das siebte Geheimnis",
+    symbol: "💎",
+    intro: "Die letzte Tür steht vor dir. Nur ein letzter Code fehlt.",
+    riddle: "Ich bin kostbar, glänze wunderschön und werde oft in Schmuck eingesetzt. Was bin ich?",
+    code: "JUWEL"
+  }
 ];
-let current=0;
-const $=id=>document.getElementById(id);
-function render(){
- if(current>=stages.length){
-  $("symbol").textContent="🏆";
-  $("title").textContent="Du hast es geschafft!";
-  $("intro").textContent="Alle sieben Geheimnisse sind gelöst. Du hast den Schatz gefunden!";
-  $("riddle").textContent="🎉 Herzlichen Glückwunsch, Rätselmeister! Hier wartet deine Belohnung: [Hier deine Überraschung eintragen.]";
-  $("codeForm").hidden=true;$("progress").textContent="7 von 7 Rätseln gelöst";$("feedback").textContent="";
-  return;
- }
- const s=stages[current];
- $("symbol").textContent=s.symbol;$("title").textContent=s.title;$("intro").textContent=s.intro;
- $("riddle").textContent=s.riddle;$("code").value="";
- $("code").placeholder="Geheimcode eingeben";$("submit").textContent=current===0?"Erstes Rätsel lösen":"Nächstes Geheimnis öffnen";
- $("progress").textContent="Rätsel "+(current+1)+" von 7";$("feedback").textContent="";
+
+// -1 bedeutet: Die Startseite wird angezeigt.
+let current = -1;
+
+const $ = id => document.getElementById(id);
+
+function normalizeCode(value) {
+  return value
+    .trim()
+    .toLocaleUpperCase("de-DE")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ß/g, "SS")
+    .replace(/[^A-Z0-9]/g, "");
 }
-$("codeForm").addEventListener("submit",e=>{
- e.preventDefault();
- const entered=$("code").value.trim().toLocaleUpperCase("de-DE").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ß/g,"SS").replace(/[^A-Z0-9]/g,"");
- const expected=stages[current].code.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ß/g,"SS").replace(/[^A-Z0-9]/g,"");
- if(entered===expected){current++;render();}
- else{$("feedback").textContent="Das ist leider nicht der richtige Code. Versuche es noch einmal!";}
+
+function render() {
+  const form = $("codeForm");
+  const startButton = $("startButton");
+  const image = $("stageImage");
+
+  // Startseite
+  if (current === -1) {
+    $("symbol").textContent = "🎄";
+    $("title").textContent = "Du und ich, Helga!";
+    $("intro").textContent =
+      "Hallo liebe Helga! ❤️ Dieses Weihnachten wartet ein ganz besonderes Abenteuer auf dich. Sieben Geheimnisse führen dich Schritt für Schritt zu deinem Weihnachtsgeschenk.";
+
+    $("riddle").textContent =
+      "Bist du bereit, dich auf die Suche zu machen? Dann beginnt jetzt unser kleines Abenteuer!";
+
+    form.hidden = true;
+    startButton.hidden = false;
+    image.hidden = true;
+
+    $("feedback").textContent = "";
+    $("progress").textContent =
+      "Dein Weihnachtsabenteuer wartet";
+
+    return;
+  }
+
+  // Abschlussseite nach allen sieben Rätseln
+  if (current >= stages.length) {
+    $("symbol").textContent = "🏆";
+    $("title").textContent = "Du hast es geschafft!";
+    $("intro").textContent =
+      "Alle sieben Geheimnisse sind gelöst. Du hast den Schatz gefunden! ❤️";
+
+    $("riddle").textContent =
+      "🎉 Herzlichen Glückwunsch, Rätselmeister! Hier wartet deine Belohnung: [Hier deine Überraschung eintragen.]";
+
+    form.hidden = true;
+    startButton.hidden = true;
+    image.hidden = true;
+
+    $("progress").textContent =
+      "7 von 7 Rätseln gelöst";
+
+    $("feedback").textContent = "";
+    return;
+  }
+
+  // Aktuelles Rätsel anzeigen
+  const stage = stages[current];
+
+  $("symbol").textContent = stage.symbol || "🗝️";
+  $("title").textContent = stage.title;
+  $("intro").textContent = stage.intro;
+  $("riddle").textContent = stage.riddle;
+
+  // Optionales Bild für ein Rätsel
+  if (stage.image) {
+    image.src = stage.image;
+    image.alt = stage.imageAlt || "Bild zum Rätsel";
+    image.hidden = false;
+  } else {
+    image.removeAttribute("src");
+    image.alt = "Bild zum Rätsel";
+    image.hidden = true;
+  }
+
+  $("code").value = "";
+  $("code").placeholder = "Geheimcode eingeben";
+
+  $("submit").textContent =
+    current === 0
+      ? "Erstes Rätsel lösen"
+      : "Nächstes Geheimnis öffnen";
+
+  form.hidden = false;
+  startButton.hidden = true;
+
+  $("progress").textContent =
+    "Rätsel " + (current + 1) + " von " + stages.length;
+
+  $("feedback").textContent = "";
+
+  $("code").focus();
+}
+
+// Startknopf
+$("startButton").addEventListener("click", () => {
+  current = 0;
+  render();
 });
+
+// Geheimcode prüfen
+$("codeForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  if (current < 0 || current >= stages.length) {
+    return;
+  }
+
+  const entered = normalizeCode($("code").value);
+  const expected = normalizeCode(stages[current].code);
+
+  if (entered === expected) {
+    current++;
+    render();
+  } else {
+    $("feedback").textContent =
+      "Das ist leider nicht der richtige Code. Versuche es noch einmal!";
+
+    $("code").select();
+  }
+});
+
+// Beim Öffnen zunächst die Startseite anzeigen
 render();
 </script>
 </body>
