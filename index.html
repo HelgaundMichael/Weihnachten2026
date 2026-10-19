@@ -351,7 +351,8 @@ $("startButton").addEventListener("click", () => {
   render();
 });
 
-// Geheimcode prüfen
+
+ // Geheimcode prüfen
 $("codeForm").addEventListener("submit", event => {
   event.preventDefault();
 
@@ -368,21 +369,13 @@ $("codeForm").addEventListener("submit", event => {
   } else {
     $("feedback").textContent =
       "Das ist leider nicht der richtige Code. Versuche es noch einmal!";
-  const entered = normalizeCode($("code").value);
-  const expected = normalizeCode(stages[current].code);
-
-  if (entered === expected) {
-    current++;
-    render();
-  } else {
-    $("feedback").textContent =
-      "Das ist leider nicht der richtige Code. Versuche es noch einmal!";
 
     $("code").select();
   }
 });
 
 // Beim Öffnen zunächst die Startseite anzeigen
+render();
 render();
 </script>
 </body>
