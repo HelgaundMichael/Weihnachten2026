@@ -342,7 +342,9 @@ function render() {
 
   $("code").value = "";
   $("code").placeholder = "Geheimcode eingeben";
-
+requestAnimationFrame(() => {
+  window.scrollTo({ top: 0, behavior: "instant" });
+});
   $("submit").textContent =
     current === 0
       ? "Erstes Rätsel lösen"
