@@ -321,7 +321,9 @@ function render() {
 
   // Aktuelles Rätsel anzeigen
   const stage = stages[current];
-
+  
+  window.scrollTo(0, 0);
+  
   $("symbol").textContent = stage.symbol || "🗝️";
   $("title").textContent = stage.title;
   $("intro").textContent = stage.intro;
